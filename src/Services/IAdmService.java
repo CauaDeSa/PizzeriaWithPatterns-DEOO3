@@ -1,9 +1,8 @@
 package Services;
 
-import DTOs.OrderDTO;
-import Models.Entitys.Orders.Order;
-import Models.Entitys.Users.User;
+import DTOs.AdministratorDTO;
+import Models.Entitys.Users.Administrator;
 
-public interface IOrderService {
-    Order CreateOrder(User attendant, OrderDTO dto);
+public interface IAdmService {
+    Administrator loginAdministrator(AdministratorDTO requestedAdministrator);
 }

@@ -1,13 +1,19 @@
 package Models.Entitys.Users;
 
-import Models.Enums.UserProfile;
-
 public abstract class User {
-    protected int id;
     protected String name;
+    protected String contact;
 
-    public User(int id, String name) {
-        this.id = id;
+    public User(String name, String contact) {
         this.name = name;
+        this.contact = contact;
     }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getContact() {
+        return contact;
+    };
 }

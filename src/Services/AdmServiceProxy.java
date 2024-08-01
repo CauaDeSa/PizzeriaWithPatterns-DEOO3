@@ -1,23 +1,39 @@
 package Services;
 
 import DTOs.AdministratorDTO;
-import Models.Dao.AdmDaoImpl;
 import Models.Entitys.Users.Administrator;
 
 public class AdmServiceProxy implements IAdmService {
-    private IAdmService admService;
-    private AdmDaoImpl admDao;
-    private AdministratorDTO current;
+    private static AdmServiceProxy instance;
+    private AdmService admService;
+    private Administrator lastAccess;
 
-    public AdmServiceProxy() {
+    private AdmServiceProxy() {
         admService = new AdmService();
-        admDao = AdmDaoImpl.getInstance();
     }
-    public boolean loginAdministrator(AdministratorDTO requestedAdministrator) {
-        if (!admService.loginAdministrator(requestedAdministrator))
-            return false;
 
-        current = requestedAdministrator;
-        return true;
+    public static AdmServiceProxy getInstance() {
+        if (instance == null)
+            instance = new AdmServiceProxy();
+        return instance;
+    }
+
+    public Administrator getLastAccess() {
+        return lastAccess;
+    }
+
+    @Override
+    public Administrator loginAdministrator(AdministratorDTO requestedAdministrator) {
+        if (lastAccess != null)
+            if (lastAccess.getContact().equals(requestedAdministrator.getContact()) && lastAccess.getPassword().equals(requestedAdministrator.getPassword()))
+                return lastAccess;
+
+        var adm = admService.loginAdministrator(requestedAdministrator);
+
+        if (adm == null)
+            return null;
+
+        lastAccess = adm;
+        return adm;
     }
 }

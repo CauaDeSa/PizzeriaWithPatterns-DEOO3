@@ -1,13 +1,8 @@
 package Models.Entitys.Items;
 
 public class Drink extends Item {
-    public Drink(int id, String name, double price) {
-        super(id, name, price);
-    }
-
-    @Override
-    public int getId() {
-        return id;
+    public Drink(String name, double price) {
+        super(name, price);
     }
 
     @Override
@@ -18,5 +13,9 @@ public class Drink extends Item {
     @Override
     public double getPrice() {
         return price;
+    }
+
+    public String toString(){
+        return  "Drink: " + name + " | Price: " + price;
     }
 }
